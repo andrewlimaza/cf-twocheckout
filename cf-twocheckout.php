@@ -37,16 +37,14 @@ define( 'CF_2CHECKOUT_VER', '1.0' );
 // Add language text domain
 add_action( 'init', 'cf_2checkout_load_plugin_textdomain' );
 
+// filter to add processor to regestered processors array
+add_filter( 'caldera_forms_get_form_processors', 'cf_2checkout_register_processor' );
+
 // Setup 2Checkout Redirect
 add_action('caldera_forms_submit_start_processors', 'cf_2checkout_set_transient', 10, 3);
 
 // Perform 2Checkout Redirect
 add_filter('caldera_forms_submit_return_redirect', 'cf_2checkout_redirect_to_checkout', 10, 3);
-
-// filter to add processor to regestered processors array
-add_filter( 'caldera_forms_get_form_processors', 'cf_2checkout_register_processor' );
-
-
 
 
 // pull in the functions file

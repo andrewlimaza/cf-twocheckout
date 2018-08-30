@@ -40,8 +40,6 @@ function cf_2checkout_set_transient($form, $referrer, $process_id ){
 			$return_url = add_query_arg( $referrer[ 'query'], $return_url  );
 		}
 		$transdata['twocheckout'][ 'return_url' ] = $return_url;
-
-
 	}
 
 
@@ -53,7 +51,6 @@ function cf_2checkout_set_transient($form, $referrer, $process_id ){
  * @since 1.0.0
  * @param array		$url			current redirect url
  * @param array		$form			array of the complete form config structure
- * @param array		$config			config array of processor instance
  * @param string	$processid		unique ID if the processor instance
  *
  * @return array	array of altered transient data
@@ -105,7 +102,6 @@ function cf_2checkout_register_processor( $processors ) {
 function cf_2checkout_pre_processor( $config, $form, $proccesid ) {
 	global $transdata;
 
-
 	/**
 	 * Complete submission after coming back from Dwolla.
 	 */
@@ -122,9 +118,6 @@ function cf_2checkout_pre_processor( $config, $form, $proccesid ) {
 					'note' => __( 'Error completing transaction', 'cf-twocheckout' )
 				);
 			}
-
-
-
 
 			if ( ! isset( $transdata[ $proccesid ][ 'meta'] ) ) {
 				$transdata[ $proccesid ][ 'meta'] = array();
@@ -252,6 +245,7 @@ function cf_2checkout_process_payment( $processor_data, $proccessid ) {
 			'cf-twocheckout-payment-confirmation' => '2checkout',
 			'cf_tp' => $transdata['transient'], // add in the cf_tp ( Caldera Forms Transient Process - this is a shortcut to reprocess a transient form submission - Document this please! )
 			'processid' => $proccessid,
+
 		),
 		$transdata['twocheckout'][ 'return_url' ]
 	);
@@ -261,9 +255,6 @@ function cf_2checkout_process_payment( $processor_data, $proccessid ) {
 	}
 
 	$payment_data = $processor_data->get_values();
-
-	var_dump( $payment_data );
-
 
 	$body = array(
 		"sid" 				=> $payment_data['account_number'],
